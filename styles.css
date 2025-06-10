@@ -1,1 +1,168 @@
 /*  your css code here. If applicable */
+/* General Body Styles */
+body {
+    font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+    background-color: #fce4ec; /* Light pink background for the body */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensure full viewport height */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Header H1 Styling */
+header h1 {
+    font-size: 3rem; /* Even larger heading for TIC TAC TOE */
+    font-weight: bold;
+    color: #880e4f; /* Darker pink for heading */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Container Styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* White background for the container */
+    padding: 30px;
+    border-radius: 12px; /* Rounded corners for the container */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    max-width: 90%; /* Responsive width */
+    width: 500px; /* Max width for container */
+    text-align: center; /* Center content inside container */
+}
+
+/* Message Display Styling */
+.message p {
+    font-size: 1.25rem; /* Larger text for messages */
+    color: #ad1457; /* Medium pink for messages */
+    margin-top: 10px;
+    margin-bottom: 20px; /* Space below message */
+}
+
+/* Input Group (Login Section) Styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.input-group label {
+    font-size: 1.1rem;
+    color: #4a0020; /* Darker text for labels */
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 2px solid #ec407a; /* Pink border for inputs */
+    border-radius: 8px; /* Rounded corners for inputs */
+    width: 250px;
+    max-width: 80%; /* Responsive width */
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.input-group input:focus {
+    border-color: #c2185b; /* Darker pink on focus */
+}
+
+/* Button Styling (Start Game, Reset Game) */
+.input-group button,
+.reset-button {
+    background-color: #d81b60; /* Deep pink button */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px; /* Rounded corners for button */
+    font-weight: bold;
+    cursor: pointer;
+    border: none; /* No default border */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-top: 15px; /* Space above buttons */
+}
+
+.input-group button:hover,
+.reset-button:hover {
+    background-color: #c2185b; /* Darker pink on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+}
+
+/* Specific styling for the Reset Game button */
+.reset-button {
+    background-color: #007bff; /* Blue for reset button */
+    margin-top: 20px;
+}
+
+.reset-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Game Board Styling */
+.board {
+    display: grid; /* Essential for grid layout */
+    grid-template-columns: repeat(3, 60px); /* 3 columns, each 60px wide */
+    grid-template-rows: repeat(3, 60px);    /* 3 rows, each 60px high */
+    gap: 5px; /* Space between cells */
+    margin: 20px auto;
+    justify-content: center; /* Center the grid horizontally within its container */
+    align-items: center; /* Center the grid vertically (if container has height) */
+    width: fit-content; /* Ensure the board takes only necessary width */
+}
+
+/* Individual Cell Styling */
+.cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #a0522d; /* Sienna border for cells */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem; /* Larger font for X/O */
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #ffe0f0; /* Lighter pink for cells */
+    border-radius: 8px; /* Rounded corners for cells */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    user-select: none; /* Prevent text selection */
+    color: #4a0020; /* Dark color for X/O */
+}
+
+.cell:hover {
+    background-color: #ffb3d9; /* Darker pink on hover */
+    transform: scale(1.02); /* Slight scale effect on hover */
+}
+
+/* Responsive Adjustments for Smaller Screens */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+    .message p {
+        font-size: 1rem;
+    }
+    .board {
+        grid-template-columns: repeat(3, 50px); /* Smaller cells */
+        grid-template-rows: repeat(3, 50px);
+    }
+    .cell {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+    .container {
+        padding: 20px;
+        width: 95%; /* Adjust width for very small screens */
+    }
+    .input-group input {
+        width: 100%; /* Full width for inputs on small screens */
+    }
+}
