@@ -2,12 +2,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
 }
+
 .board {
     display: grid;
     grid-template-columns: repeat(3, 60px);
     grid-gap: 5px;
+    margin: 20px 0;
 }
+
 .cell {
     width: 60px;
     height: 60px;
@@ -17,4 +22,10 @@
     justify-content: center;
     font-size: 2rem;
     cursor: pointer;
+}
+
+.message {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
