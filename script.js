@@ -1,78 +1,76 @@
 let currentPlayer = 'X';
-let board = ['', '', '', '', '', '', '', '', ''];
+let board = Array(9).fill('');
+let player1 = '';
+let player2 = '';
 let gameActive = false;
-let playerXName = '';
-let playerOName = '';
 
-document.getElementById('submit').addEventListener('click', function () {
-    playerXName = document.getElementById('player-1').value || 'Player X';
-    playerOName = document.getElementById('player-2').value || 'Player O';
+document.getElementById('submit').addEventListener('click', startGame);
 
-    gameActive = true;
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('game-section').style.display = 'block';
+function startGame() {
+  player1 = document.getElementById('player1').value || 'Player1';
+  player2 = document.getElementById('player2').value || 'Player2';
 
-    initializeBoard();
-});
+  gameActive = true;
+  document.getElementById('input-section').style.display = 'none';
+  document.getElementById('game-section').style.display = 'block';
 
-function initializeBoard() {
-    const boardElement = document.querySelector('.board');
-    const messageElement = document.querySelector('.message');
-    boardElement.innerHTML = '';
-    board.fill('');
-    currentPlayer = 'X';
-    gameActive = true;
-    messageElement.textContent = `${playerXName}'s turn (X)`;
+  createBoard();
+  displayMessage(`${player1}, you're up`);
+}
 
-    for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.index = i;
-        cell.addEventListener('click', handleCellClick);
-        boardElement.appendChild(cell);
-    }
+function createBoard() {
+  const boardElement = document.querySelector('.board');
+  boardElement.innerHTML = '';
+  board = Array(9).fill('');
+  currentPlayer = 'X';
+
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.id = (i + 1).toString(); // Add ID from 1 to 9
+    cell.addEventListener('click', handleCellClick);
+    boardElement.appendChild(cell);
+  }
 }
 
 function handleCellClick(event) {
-    const clickedCell = event.target;
-    const clickedIndex = clickedCell.dataset.index;
+  const index = parseInt(event.target.id) - 1;
 
-    if (board[clickedIndex] !== '' || !gameActive) return;
+  if (board[index] !== '' || !gameActive) return;
 
-    board[clickedIndex] = currentPlayer;
-    clickedCell.textContent = currentPlayer;
+  board[index] = currentPlayer;
+  event.target.textContent = currentPlayer.toLowerCase(); // x or o
 
-    if (checkWin()) {
-        const winner = currentPlayer === 'X' ? playerXName : playerOName;
-        document.querySelector('.message').textContent = `${winner} wins!`;
-        gameActive = false;
-    } else if (board.every(cell => cell !== '')) {
-        document.querySelector('.message').textContent = "It's a draw!";
-        gameActive = false;
-    } else {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        const currentPlayerName = currentPlayer === 'X' ? playerXName : playerOName;
-        document.querySelector('.message').textContent = `${currentPlayerName}'s turn (${currentPlayer})`;
-    }
+  if (checkWin()) {
+    const winner = currentPlayer === 'X' ? player1 : player2;
+    displayMessage(`${winner} congratulations you won!`);
+    gameActive = false;
+    return;
+  }
+
+  if (board.every(cell => cell !== '')) {
+    displayMessage("It's a draw!");
+    gameActive = false;
+    return;
+  }
+
+  currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  const nextPlayer = currentPlayer === 'X' ? player1 : player2;
+  displayMessage(`${nextPlayer}, you're up`);
 }
 
-const winConditions = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-    [0, 4, 8], [2, 4, 6]             // Diagonals
-];
+function displayMessage(msg) {
+  document.querySelector('.message').textContent = msg;
+}
 
 function checkWin() {
-    for (const condition of winConditions) {
-        const [a, b, c] = condition;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            return true;
-        }
-    }
-    return false;
+  const winConditions = [
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8], [2,4,6]
+  ];
+
+  return winConditions.some(([a, b, c]) =>
+    board[a] && board[a] === board[b] && board[a] === board[c]
+  );
 }
-
-document.getElementById('reset-button').addEventListener('click', function () {
-    initializeBoard();
-});
-
